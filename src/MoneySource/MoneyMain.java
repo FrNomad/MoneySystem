@@ -80,9 +80,8 @@ public class MoneyMain extends JavaPlugin implements Listener, TabExecutor {
 		createFile(userData);
 		createFile(addressData);
 		fileToJson();
-		System.out.println(NoticeChatcolor + "[MoneyManager] º» ¹öÀüÀº ½º³À¼¦ÀÔ´Ï´Ù. ¿À·ù°¡ ¹ß»ıÇÒ ¼ö ÀÖ½À´Ï´Ù. ¿À·ù°¡ ÀÖÀ» ½Ã µğ½ºÄÚµå FrNomad#2821·Î ¹®ÀÇÇØÁÖ¼¼¿ä.");
-		System.out.println(NoticeChatcolor + "[MoneyManager] Á¦ÀÛÀÚ : FrNomad");
-		System.out.println(NoticeChatcolor + "[MoneyManager] " + pdfile.getName() + " " + pdfile.getVersion() + " ¹öÀüÀÌ ½ÇÇà ¿Ï·áµÊ.");
+		System.out.println(NoticeChatcolor + "[MoneyManager] ì œì‘ì : FrNomad");
+		System.out.println(NoticeChatcolor + "[MoneyManager] " + pdfile.getName() + " " + pdfile.getVersion() + " ë²„ì „ì´ ì‹¤í–‰ ì™„ë£Œë¨.");
 		System.out.println(NoticeChatcolor + "==================================================");
 	}
 	
@@ -91,7 +90,7 @@ public class MoneyMain extends JavaPlugin implements Listener, TabExecutor {
 		PluginDescriptionFile pdfile = this.getDescription();
 		System.out.println(NoticeChatcolor + "==================================================");
 		jsonToFile();
-		System.out.println(NoticeChatcolor + "[MoneyManager] " + pdfile.getName() + " " + pdfile.getVersion() + " ¹öÀüÀÌ ²¨Áü.");
+		System.out.println(NoticeChatcolor + "[MoneyManager] " + pdfile.getName() + " " + pdfile.getVersion() + " ë²„ì „ì´ êº¼ì§.");
 		System.out.println(NoticeChatcolor + "==================================================");
 	}
 	
@@ -99,7 +98,7 @@ public class MoneyMain extends JavaPlugin implements Listener, TabExecutor {
 		if(!f.exists() || !f.isFile()) {
 			try {
 				f.createNewFile();
-				System.out.println(NoticeChatcolor + "[MoneyManager]" + f.getName() + " ÆÄÀÏÀÌ »õ·Î »ı¼ºµÇ¾ú½À´Ï´Ù.");
+				System.out.println(NoticeChatcolor + "[MoneyManager]" + f.getName() + " íŒŒì¼ì´ ìƒˆë¡œ ìƒì„±ë˜ì—ˆìŠµë‹ˆë‹¤.");
 			}
 			catch(IOException e) {
 				e.printStackTrace();
@@ -229,13 +228,13 @@ public class MoneyMain extends JavaPlugin implements Listener, TabExecutor {
 	public boolean onCommand(CommandSender s, Command cmd, String label, String[] args) {
 		if(label.equalsIgnoreCase("money")) {
 			if(args.length < 1) {
-				s.sendMessage(ChatColor.GOLD + "¸í·É¾î »ç¿ë ¹æ¹ı: \n" + ChatColor.RED + "/money <list|check|send|company|add|subtract|give|all>");
+				s.sendMessage(ChatColor.GOLD + "ëª…ë ¹ì–´ ì‚¬ìš© ë°©ë²•: \n" + ChatColor.RED + "/money <list|check|send|company|add|subtract|give|all>");
 			}
 			else {
 				if(contains(consoleCmd, args[0])) {
 					if(!(s instanceof Player)) {
 						if(args[0].equalsIgnoreCase("add")) {          //money add
-							if(errorLength(args, 4, s, "/money add <company|user> <È¸»ç|»ç¿ëÀÚ¸í> <¾×¼ö>", true)) {
+							if(errorLength(args, 4, s, "/money add <company|user> <íšŒì‚¬|ì‚¬ìš©ìëª…> <ì•¡ìˆ˜>", true)) {
 								boolean isExist = false;
 								if(args[1].equalsIgnoreCase("user")) {
 									MoneyUser mu = null;
@@ -249,17 +248,17 @@ public class MoneyMain extends JavaPlugin implements Listener, TabExecutor {
 									if(isExist) {
 										try {
 											int pmoney = Integer.parseInt(args[3]);
-											s.sendMessage(format("&f&l[&a&l!&f&l] &r&6"+ mu.getUserName() + " °³ÀÎ°èÁÂ¿¡ &a" + pmoney + " ¿ø &6ÀÌ Áö±ŞµÇ¾ú½À´Ï´Ù."));
+											s.sendMessage(format("&f&l[&a&l!&f&l] &r&6"+ mu.getUserName() + " ê°œì¸ê³„ì¢Œì— &a" + pmoney + " ì› &6ì´ ì§€ê¸‰ë˜ì—ˆìŠµë‹ˆë‹¤."));
 											mu.AddMoney(pmoney);
-											s.sendMessage(format("&f&l[&a&l!&f&l] &r&6ÀÜ¾×Àº &a" + mu.getUserMoney() + " ¿ø &6ÀÔ´Ï´Ù."));
+											s.sendMessage(format("&f&l[&a&l!&f&l] &r&6ì”ì•¡ì€ &a" + mu.getUserMoney() + " ì› &6ì…ë‹ˆë‹¤."));
 											jsonToFile();
 										} catch(NumberFormatException e) {
-											s.sendMessage(format("&f&l[&c&l!&f&l] &r&c¾×¼ö´Â Á¤¼ö·Î ÀÔ·ÂÇÏ¼Å¾ß ÇÕ´Ï´Ù!"));
+											s.sendMessage(format("&f&l[&c&l!&f&l] &r&cì•¡ìˆ˜ëŠ” ì •ìˆ˜ë¡œ ì…ë ¥í•˜ì…”ì•¼ í•©ë‹ˆë‹¤!"));
 										}
 										
 									}
 									else {
-										s.sendMessage(format("&f&l[&c&l!&f&l] &r&cÇØ´ç °³ÀÎ°èÁÂ°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù."));
+										s.sendMessage(format("&f&l[&c&l!&f&l] &r&cí•´ë‹¹ ê°œì¸ê³„ì¢Œê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤."));
 									}
 								}
 								else if(args[1].equalsIgnoreCase("company")) {
@@ -274,26 +273,26 @@ public class MoneyMain extends JavaPlugin implements Listener, TabExecutor {
 									if(isExist) {
 										try {
 											int pmoney = Integer.parseInt(args[3]);
-											s.sendMessage(format("&f&l[&a&l!&f&l] &r&6"+ mad.getAddressName() + " È¸»ç°èÁÂ¿¡ &a" + pmoney + " ¿ø &6ÀÌ Áö±ŞµÇ¾ú½À´Ï´Ù."));
+											s.sendMessage(format("&f&l[&a&l!&f&l] &r&6"+ mad.getAddressName() + " íšŒì‚¬ê³„ì¢Œì— &a" + pmoney + " ì› &6ì´ ì§€ê¸‰ë˜ì—ˆìŠµë‹ˆë‹¤."));
 											mad.AddMoney(pmoney);
-											s.sendMessage(format("&f&l[&a&l!&f&l] &r&6ÀÜ¾×Àº &a" + mad.getAddressMoney() + " ¿ø &6ÀÔ´Ï´Ù."));
+											s.sendMessage(format("&f&l[&a&l!&f&l] &r&6ì”ì•¡ì€ &a" + mad.getAddressMoney() + " ì› &6ì…ë‹ˆë‹¤."));
 											jsonToFile();
 										} catch(NumberFormatException e) {
-											s.sendMessage(format("&f&l[&c&l!&f&l] &r&c¾×¼ö´Â Á¤¼ö·Î ÀÔ·ÂÇÏ¼Å¾ß ÇÕ´Ï´Ù!"));
+											s.sendMessage(format("&f&l[&c&l!&f&l] &r&cì•¡ìˆ˜ëŠ” ì •ìˆ˜ë¡œ ì…ë ¥í•˜ì…”ì•¼ í•©ë‹ˆë‹¤!"));
 										}
 										
 									}
 									else {
-										s.sendMessage(format("&f&l[&c&l!&f&l] &r&cÇØ´ç È¸»ç°èÁÂ°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù."));
+										s.sendMessage(format("&f&l[&c&l!&f&l] &r&cí•´ë‹¹ íšŒì‚¬ê³„ì¢Œê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤."));
 									}
 								}
 								else {
-									s.sendMessage(format("&f&l[&c&l!&f&l] &r&c¾Ë¸ÂÀº ¸í·É¾î¸¦ ÀÔ·ÂÇÏ½Ê½Ã¿À!"));
+									s.sendMessage(format("&f&l[&c&l!&f&l] &r&cì•Œë§ì€ ëª…ë ¹ì–´ë¥¼ ì…ë ¥í•˜ì‹­ì‹œì˜¤!"));
 								}
 							}
 						}
 						else if(args[0].equalsIgnoreCase("subtract")) {          //money subtract
-							if(errorLength(args, 4, s, "/money subtract <company|user> <È¸»ç|»ç¿ëÀÚ¸í> <¾×¼ö>", true)) {
+							if(errorLength(args, 4, s, "/money subtract <company|user> <íšŒì‚¬|ì‚¬ìš©ìëª…> <ì•¡ìˆ˜>", true)) {
 								boolean isExist = false;
 								if(args[1].equalsIgnoreCase("user")) {
 									MoneyUser mu = null;
@@ -307,17 +306,17 @@ public class MoneyMain extends JavaPlugin implements Listener, TabExecutor {
 									if(isExist) {
 										try {
 											int pmoney = Integer.parseInt(args[3]);
-											s.sendMessage(format("&f&l[&a&l!&f&l] &r&6"+ mu.getUserName() + " °³ÀÎ°èÁÂ¿¡ &c" + pmoney + " ¿ø &6ÀÌ Â÷°¨µÇ¾ú½À´Ï´Ù."));
+											s.sendMessage(format("&f&l[&a&l!&f&l] &r&6"+ mu.getUserName() + " ê°œì¸ê³„ì¢Œì— &c" + pmoney + " ì› &6ì´ ì°¨ê°ë˜ì—ˆìŠµë‹ˆë‹¤."));
 											mu.RemoveMoney(pmoney);
-											s.sendMessage(format("&f&l[&a&l!&f&l] &r&6ÀÜ¾×Àº &a" + mu.getUserMoney() + " ¿ø &6ÀÔ´Ï´Ù."));
+											s.sendMessage(format("&f&l[&a&l!&f&l] &r&6ì”ì•¡ì€ &a" + mu.getUserMoney() + " ì› &6ì…ë‹ˆë‹¤."));
 											jsonToFile();
 										} catch(NumberFormatException e) {
-											s.sendMessage(format("&f&l[&c&l!&f&l] &r&c¾×¼ö´Â Á¤¼ö·Î ÀÔ·ÂÇÏ¼Å¾ß ÇÕ´Ï´Ù!"));
+											s.sendMessage(format("&f&l[&c&l!&f&l] &r&cì•¡ìˆ˜ëŠ” ì •ìˆ˜ë¡œ ì…ë ¥í•˜ì…”ì•¼ í•©ë‹ˆë‹¤!"));
 										}
 										
 									}
 									else {
-										s.sendMessage(format("&f&l[&c&l!&f&l] &r&cÇØ´ç °³ÀÎ°èÁÂ°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù."));
+										s.sendMessage(format("&f&l[&c&l!&f&l] &r&cí•´ë‹¹ ê°œì¸ê³„ì¢Œê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤."));
 									}
 								}
 								else if(args[1].equalsIgnoreCase("company")) {
@@ -332,26 +331,26 @@ public class MoneyMain extends JavaPlugin implements Listener, TabExecutor {
 									if(isExist) {
 										try {
 											int pmoney = Integer.parseInt(args[3]);
-											s.sendMessage(format("&f&l[&a&l!&f&l] &r&6"+ mad.getAddressName() + " È¸»ç°èÁÂ¿¡ &c" + pmoney + " ¿ø &6ÀÌ Â÷°¨µÇ¾ú½À´Ï´Ù."));
+											s.sendMessage(format("&f&l[&a&l!&f&l] &r&6"+ mad.getAddressName() + " íšŒì‚¬ê³„ì¢Œì— &c" + pmoney + " ì› &6ì´ ì°¨ê°ë˜ì—ˆìŠµë‹ˆë‹¤."));
 											mad.RemoveMoney(pmoney);
-											s.sendMessage(format("&f&l[&a&l!&f&l] &r&6ÀÜ¾×Àº &a" + mad.getAddressMoney() + " ¿ø &6ÀÔ´Ï´Ù."));
+											s.sendMessage(format("&f&l[&a&l!&f&l] &r&6ì”ì•¡ì€ &a" + mad.getAddressMoney() + " ì› &6ì…ë‹ˆë‹¤."));
 											jsonToFile();
 										} catch(NumberFormatException e) {
-											s.sendMessage(format("&f&l[&c&l!&f&l] &r&c¾×¼ö´Â Á¤¼ö·Î ÀÔ·ÂÇÏ¼Å¾ß ÇÕ´Ï´Ù!"));
+											s.sendMessage(format("&f&l[&c&l!&f&l] &r&cì•¡ìˆ˜ëŠ” ì •ìˆ˜ë¡œ ì…ë ¥í•˜ì…”ì•¼ í•©ë‹ˆë‹¤!"));
 										}
 										
 									}
 									else {
-										s.sendMessage(format("&f&l[&c&l!&f&l] &r&cÇØ´ç È¸»ç°èÁÂ°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù."));
+										s.sendMessage(format("&f&l[&c&l!&f&l] &r&cí•´ë‹¹ íšŒì‚¬ê³„ì¢Œê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤."));
 									}
 								}
 								else {
-									s.sendMessage(format("&f&l[&c&l!&f&l] &r&c¾Ë¸ÂÀº ¸í·É¾î¸¦ ÀÔ·ÂÇÏ½Ê½Ã¿À!"));
+									s.sendMessage(format("&f&l[&c&l!&f&l] &r&cì•Œë§ì€ ëª…ë ¹ì–´ë¥¼ ì…ë ¥í•˜ì‹­ì‹œì˜¤!"));
 								}
 							}
 						}
 						else if(args[0].equalsIgnoreCase("give")) {         //money give
-							if(errorLength(args, 6, s, "/money give <company|user> <È¸»ç1|»ç¿ëÀÚ¸í1> <company|user> <È¸»ç2|»ç¿ëÀÚ¸í2> <¾×¼ö>", true)) {
+							if(errorLength(args, 6, s, "/money give <company|user> <íšŒì‚¬1|ì‚¬ìš©ìëª…1> <company|user> <íšŒì‚¬2|ì‚¬ìš©ìëª…2> <ì•¡ìˆ˜>", true)) {
 								boolean isExist1 = false;
 								boolean isExist2 = false;
 								if(args[1].equalsIgnoreCase("user")) {
@@ -375,18 +374,18 @@ public class MoneyMain extends JavaPlugin implements Listener, TabExecutor {
 										if(isExist1 && isExist2) {
 											try {
 												int pmoney = Integer.parseInt(args[5]);
-												s.sendMessage(format("&f&l[&a&l!&f&l] &r&c"+ mu.getUserName() + " &6°³ÀÎ°èÁÂ¿¡¼­ &a" + mu2.getUserName() + " &6°³ÀÎ°èÁÂ·Î &a" + pmoney + " ¿ø &6ÀÌ ÀÌµ¿µÇ¾ú½À´Ï´Ù."));
+												s.sendMessage(format("&f&l[&a&l!&f&l] &r&c"+ mu.getUserName() + " &6ê°œì¸ê³„ì¢Œì—ì„œ &a" + mu2.getUserName() + " &6ê°œì¸ê³„ì¢Œë¡œ &a" + pmoney + " ì› &6ì´ ì´ë™ë˜ì—ˆìŠµë‹ˆë‹¤."));
 												mu.RemoveMoney(pmoney);
 												mu2.AddMoney(pmoney);
-												s.sendMessage(format("&f&l[&a&l!&f&l] &r&c" + mu.getUserName() + " &6°³ÀÎ°èÁÂ ÀÜ¾×Àº &a" + mu.getUserMoney() + " ¿ø &6ÀÔ´Ï´Ù."));
-												s.sendMessage(format("&f&l[&a&l!&f&l] &r&a" + mu2.getUserName() + " &6°³ÀÎ°èÁÂ ÀÜ¾×Àº &a" + mu2.getUserMoney() + " ¿ø &6ÀÔ´Ï´Ù."));
+												s.sendMessage(format("&f&l[&a&l!&f&l] &r&c" + mu.getUserName() + " &6ê°œì¸ê³„ì¢Œ ì”ì•¡ì€ &a" + mu.getUserMoney() + " ì› &6ì…ë‹ˆë‹¤."));
+												s.sendMessage(format("&f&l[&a&l!&f&l] &r&a" + mu2.getUserName() + " &6ê°œì¸ê³„ì¢Œ ì”ì•¡ì€ &a" + mu2.getUserMoney() + " ì› &6ì…ë‹ˆë‹¤."));
 												jsonToFile();
 											} catch(NumberFormatException e) {
-												s.sendMessage(format("&f&l[&c&l!&f&l] &r&c¾×¼ö´Â Á¤¼ö·Î ÀÔ·ÂÇÏ¼Å¾ß ÇÕ´Ï´Ù!"));
+												s.sendMessage(format("&f&l[&c&l!&f&l] &r&cì•¡ìˆ˜ëŠ” ì •ìˆ˜ë¡œ ì…ë ¥í•˜ì…”ì•¼ í•©ë‹ˆë‹¤!"));
 											}
 										}
 										else {
-											s.sendMessage(format("&f&l[&c&l!&f&l] &r&cÇØ´ç È¸»ç°èÁÂ ¶Ç´Â °³ÀÎ°èÁÂ°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù."));
+											s.sendMessage(format("&f&l[&c&l!&f&l] &r&cí•´ë‹¹ íšŒì‚¬ê³„ì¢Œ ë˜ëŠ” ê°œì¸ê³„ì¢Œê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤."));
 										}
 									}
 									else if(args[3].equalsIgnoreCase("company")) {
@@ -401,22 +400,22 @@ public class MoneyMain extends JavaPlugin implements Listener, TabExecutor {
 										if(isExist1 && isExist2) {
 											try {
 												int pmoney = Integer.parseInt(args[5]);
-												s.sendMessage(format("&f&l[&a&l!&f&l] &r&c"+ mu.getUserName() + " &6°³ÀÎ°èÁÂ¿¡¼­ &a" + mad2.getAddressName() + " &6È¸»ç°èÁÂ·Î &a" + pmoney + " ¿ø &6ÀÌ ÀÌµ¿µÇ¾ú½À´Ï´Ù."));
+												s.sendMessage(format("&f&l[&a&l!&f&l] &r&c"+ mu.getUserName() + " &6ê°œì¸ê³„ì¢Œì—ì„œ &a" + mad2.getAddressName() + " &6íšŒì‚¬ê³„ì¢Œë¡œ &a" + pmoney + " ì› &6ì´ ì´ë™ë˜ì—ˆìŠµë‹ˆë‹¤."));
 												mu.RemoveMoney(pmoney);
 												mad2.AddMoney(pmoney);
-												s.sendMessage(format("&f&l[&a&l!&f&l] &r&c" + mu.getUserName() + " &6°³ÀÎ°èÁÂ ÀÜ¾×Àº &a" + mu.getUserMoney() + " ¿ø &6ÀÔ´Ï´Ù."));
-												s.sendMessage(format("&f&l[&a&l!&f&l] &r&a" + mad2.getAddressName() + " &6È¸»ç°èÁÂ ÀÜ¾×Àº &a" + mad2.getAddressMoney() + " ¿ø &6ÀÔ´Ï´Ù."));
+												s.sendMessage(format("&f&l[&a&l!&f&l] &r&c" + mu.getUserName() + " &6ê°œì¸ê³„ì¢Œ ì”ì•¡ì€ &a" + mu.getUserMoney() + " ì› &6ì…ë‹ˆë‹¤."));
+												s.sendMessage(format("&f&l[&a&l!&f&l] &r&a" + mad2.getAddressName() + " &6íšŒì‚¬ê³„ì¢Œ ì”ì•¡ì€ &a" + mad2.getAddressMoney() + " ì› &6ì…ë‹ˆë‹¤."));
 												jsonToFile();
 											} catch(NumberFormatException e) {
-												s.sendMessage(format("&f&l[&c&l!&f&l] &r&c¾×¼ö´Â Á¤¼ö·Î ÀÔ·ÂÇÏ¼Å¾ß ÇÕ´Ï´Ù!"));
+												s.sendMessage(format("&f&l[&c&l!&f&l] &r&cì•¡ìˆ˜ëŠ” ì •ìˆ˜ë¡œ ì…ë ¥í•˜ì…”ì•¼ í•©ë‹ˆë‹¤!"));
 											}
 										}
 										else {
-											s.sendMessage(format("&f&l[&c&l!&f&l] &r&cÇØ´ç È¸»ç°èÁÂ ¶Ç´Â °³ÀÎ°èÁÂ°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù."));
+											s.sendMessage(format("&f&l[&c&l!&f&l] &r&cí•´ë‹¹ íšŒì‚¬ê³„ì¢Œ ë˜ëŠ” ê°œì¸ê³„ì¢Œê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤."));
 										}
 									}
 									else {
-										s.sendMessage(format("&f&l[&c&l!&f&l] &r&c¾Ë¸ÂÀº ¸í·É¾î¸¦ ÀÔ·ÂÇÏ½Ê½Ã¿À!"));
+										s.sendMessage(format("&f&l[&c&l!&f&l] &r&cì•Œë§ì€ ëª…ë ¹ì–´ë¥¼ ì…ë ¥í•˜ì‹­ì‹œì˜¤!"));
 									}
 								}
 								else if(args[1].equalsIgnoreCase("company")) {
@@ -440,18 +439,18 @@ public class MoneyMain extends JavaPlugin implements Listener, TabExecutor {
 										if(isExist1 && isExist2) {
 											try {
 												int pmoney = Integer.parseInt(args[5]);
-												s.sendMessage(format("&f&l[&a&l!&f&l] &r&c"+ mu2.getUserName() + " &6È¸»ç°èÁÂ¿¡¼­ &a" + mad.getAddressName() + " &6°³ÀÎ°èÁÂ·Î &a" + pmoney + " ¿ø &6ÀÌ ÀÌµ¿µÇ¾ú½À´Ï´Ù."));
+												s.sendMessage(format("&f&l[&a&l!&f&l] &r&c"+ mu2.getUserName() + " &6íšŒì‚¬ê³„ì¢Œì—ì„œ &a" + mad.getAddressName() + " &6ê°œì¸ê³„ì¢Œë¡œ &a" + pmoney + " ì› &6ì´ ì´ë™ë˜ì—ˆìŠµë‹ˆë‹¤."));
 												mad.RemoveMoney(pmoney);
 												mu2.AddMoney(pmoney);
-												s.sendMessage(format("&f&l[&a&l!&f&l] &r&c" + mu2.getUserName() + " &6È¸»ç°èÁÂ ÀÜ¾×Àº &a" + mu2.getUserMoney() + " ¿ø &6ÀÔ´Ï´Ù."));
-												s.sendMessage(format("&f&l[&a&l!&f&l] &r&a" + mad.getAddressName() + " &6°³ÀÎ°èÁÂ ÀÜ¾×Àº &a" + mad.getAddressMoney() + " ¿ø &6ÀÔ´Ï´Ù."));
+												s.sendMessage(format("&f&l[&a&l!&f&l] &r&c" + mu2.getUserName() + " &6íšŒì‚¬ê³„ì¢Œ ì”ì•¡ì€ &a" + mu2.getUserMoney() + " ì› &6ì…ë‹ˆë‹¤."));
+												s.sendMessage(format("&f&l[&a&l!&f&l] &r&a" + mad.getAddressName() + " &6ê°œì¸ê³„ì¢Œ ì”ì•¡ì€ &a" + mad.getAddressMoney() + " ì› &6ì…ë‹ˆë‹¤."));
 												jsonToFile();
 											} catch(NumberFormatException e) {
-												s.sendMessage(format("&f&l[&c&l!&f&l] &r&c¾×¼ö´Â Á¤¼ö·Î ÀÔ·ÂÇÏ¼Å¾ß ÇÕ´Ï´Ù!"));
+												s.sendMessage(format("&f&l[&c&l!&f&l] &r&cì•¡ìˆ˜ëŠ” ì •ìˆ˜ë¡œ ì…ë ¥í•˜ì…”ì•¼ í•©ë‹ˆë‹¤!"));
 											}
 										}
 										else {
-											s.sendMessage(format("&f&l[&c&l!&f&l] &r&cÇØ´ç È¸»ç°èÁÂ ¶Ç´Â °³ÀÎ°èÁÂ°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù."));
+											s.sendMessage(format("&f&l[&c&l!&f&l] &r&cí•´ë‹¹ íšŒì‚¬ê³„ì¢Œ ë˜ëŠ” ê°œì¸ê³„ì¢Œê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤."));
 										}
 									}
 									else if(args[3].equalsIgnoreCase("company")) {
@@ -466,27 +465,27 @@ public class MoneyMain extends JavaPlugin implements Listener, TabExecutor {
 										if(isExist1 && isExist2) {
 											try {
 												int pmoney = Integer.parseInt(args[5]);
-												s.sendMessage(format("&f&l[&a&l!&f&l] &r&c"+ mad.getAddressName() + " &6È¸»ç°èÁÂ¿¡¼­ &a" + mad2.getAddressName() + " &6È¸»ç°èÁÂ·Î &a" + pmoney + " ¿ø &6ÀÌ ÀÌµ¿µÇ¾ú½À´Ï´Ù."));
+												s.sendMessage(format("&f&l[&a&l!&f&l] &r&c"+ mad.getAddressName() + " &6íšŒì‚¬ê³„ì¢Œì—ì„œ &a" + mad2.getAddressName() + " &6íšŒì‚¬ê³„ì¢Œë¡œ &a" + pmoney + " ì› &6ì´ ì´ë™ë˜ì—ˆìŠµë‹ˆë‹¤."));
 												mad.RemoveMoney(pmoney);
 												mad2.AddMoney(pmoney);
-												s.sendMessage(format("&f&l[&a&l!&f&l] &r&c" + mad.getAddressName() + " &6È¸»ç°èÁÂ ÀÜ¾×Àº &a" + mad.getAddressMoney() + " ¿ø &6ÀÔ´Ï´Ù."));
-												s.sendMessage(format("&f&l[&a&l!&f&l] &r&a" + mad2.getAddressName() + " &6È¸»ç°èÁÂ ÀÜ¾×Àº &a" + mad2.getAddressMoney() + " ¿ø &6ÀÔ´Ï´Ù."));
+												s.sendMessage(format("&f&l[&a&l!&f&l] &r&c" + mad.getAddressName() + " &6íšŒì‚¬ê³„ì¢Œ ì”ì•¡ì€ &a" + mad.getAddressMoney() + " ì› &6ì…ë‹ˆë‹¤."));
+												s.sendMessage(format("&f&l[&a&l!&f&l] &r&a" + mad2.getAddressName() + " &6íšŒì‚¬ê³„ì¢Œ ì”ì•¡ì€ &a" + mad2.getAddressMoney() + " ì› &6ì…ë‹ˆë‹¤."));
 												jsonToFile();
 											} catch(NumberFormatException e) {
-												s.sendMessage(format("&f&l[&c&l!&f&l] &r&c¾×¼ö´Â Á¤¼ö·Î ÀÔ·ÂÇÏ¼Å¾ß ÇÕ´Ï´Ù!"));
+												s.sendMessage(format("&f&l[&c&l!&f&l] &r&cì•¡ìˆ˜ëŠ” ì •ìˆ˜ë¡œ ì…ë ¥í•˜ì…”ì•¼ í•©ë‹ˆë‹¤!"));
 											}
 										}
 										else {
-											s.sendMessage(format("&f&l[&c&l!&f&l] &r&cÇØ´ç È¸»ç°èÁÂ ¶Ç´Â °³ÀÎ°èÁÂ°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù."));
+											s.sendMessage(format("&f&l[&c&l!&f&l] &r&cí•´ë‹¹ íšŒì‚¬ê³„ì¢Œ ë˜ëŠ” ê°œì¸ê³„ì¢Œê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤."));
 										}
 									}
 									else {
-										s.sendMessage(format("&f&l[&c&l!&f&l] &r&c¾Ë¸ÂÀº ¸í·É¾î¸¦ ÀÔ·ÂÇÏ½Ê½Ã¿À!"));
+										s.sendMessage(format("&f&l[&c&l!&f&l] &r&cì•Œë§ì€ ëª…ë ¹ì–´ë¥¼ ì…ë ¥í•˜ì‹­ì‹œì˜¤!"));
 									}
 									
 								}
 								else {
-									s.sendMessage(format("&f&l[&c&l!&f&l] &r&c¾Ë¸ÂÀº ¸í·É¾î¸¦ ÀÔ·ÂÇÏ½Ê½Ã¿À!"));
+									s.sendMessage(format("&f&l[&c&l!&f&l] &r&cì•Œë§ì€ ëª…ë ¹ì–´ë¥¼ ì…ë ¥í•˜ì‹­ì‹œì˜¤!"));
 								}
 							}
 						}
@@ -499,35 +498,35 @@ public class MoneyMain extends JavaPlugin implements Listener, TabExecutor {
 								for(int i = 0; i < address.size(); i++) {
 									allmoney += address.get(i).getAddressMoney();
 								}
-								s.sendMessage(format("&f&l[&a&l!&f&l] &r&6º» ¼­¹öÀÇ ÃÑ ÅëÈ­·®Àº &a" + allmoney + " ¿ø &6ÀÔ´Ï´Ù."));
+								s.sendMessage(format("&f&l[&a&l!&f&l] &r&6ë³¸ ì„œë²„ì˜ ì´ í†µí™”ëŸ‰ì€ &a" + allmoney + " ì› &6ì…ë‹ˆë‹¤."));
 							}
 						}
 						else if(args[0].equalsIgnoreCase("list")) {
 							if(errorLength(args, 2, s, "/money list <company|user>", true)) {
-								String allstr = "&2¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É\n";
+								String allstr = "&2â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨\n";
 								boolean isValid = false;
 								if(args[1].equalsIgnoreCase("user")) {
 									isValid = true;
-									allstr += "&f&l[&a&l!&f&l] &r&a[»ç¿ëÀÚ ¸ñ·Ï]\n";
+									allstr += "&f&l[&a&l!&f&l] &r&a[ì‚¬ìš©ì ëª©ë¡]\n";
 									for(int i = 0; i < user.size(); i++) {
-										allstr += "&f&l[&a&l!&f&l] &r&a&l" + user.get(i).getUserName() + "   &r&7-------------   &a" + user.get(i).getUserMoney() + " &6¿ø\n";
+										allstr += "&f&l[&a&l!&f&l] &r&a&l" + user.get(i).getUserName() + "   &r&7-------------   &a" + user.get(i).getUserMoney() + " &6ì›\n";
 									}
 								}
 								else if(args[1].equalsIgnoreCase("company")) {
 									isValid = true;
-									allstr += "&f&l[&a&l!&f&l] &r&a[È¸»ç ¸ñ·Ï]\n";
+									allstr += "&f&l[&a&l!&f&l] &r&a[íšŒì‚¬ ëª©ë¡]\n";
 									for(int i = 0; i < address.size(); i++) {
-										allstr += "&f&l[&a&l!&f&l] &r&a&l" + address.get(i).getAddressName() + "   &r&7-------------   &a" + address.get(i).getAddressMoney() + " &6¿ø\n   &f&l[&6&l!&f&l] &r&a&l[¼ÒÀ¯ÀÚ] : &a" + address.get(i).getAddressChief().getUserName() + "\n   &r&f&l[&6&l!&f&l] &r&a&l[°ü¸®ÀÚ] : \n";
+										allstr += "&f&l[&a&l!&f&l] &r&a&l" + address.get(i).getAddressName() + "   &r&7-------------   &a" + address.get(i).getAddressMoney() + " &6ì›\n   &f&l[&6&l!&f&l] &r&a&l[ì†Œìœ ì] : &a" + address.get(i).getAddressChief().getUserName() + "\n   &r&f&l[&6&l!&f&l] &r&a&l[ê´€ë¦¬ì] : \n";
 										for(int j = 0; j < address.get(i).getAddressPlayer().size(); j++) {
 											allstr += "      &r&f&l[&6&l!&f&l] &r&a&l" + address.get(i).getAddressPlayer().get(j).getUserName() + "\n";
 										}
 									}
 								}
 								else {
-									s.sendMessage(format("&f&l[&c&l!&f&l] &r&c¾Ë¸ÂÀº ¸í·É¾î¸¦ ÀÔ·ÂÇÏ½Ê½Ã¿À!"));
+									s.sendMessage(format("&f&l[&c&l!&f&l] &r&cì•Œë§ì€ ëª…ë ¹ì–´ë¥¼ ì…ë ¥í•˜ì‹­ì‹œì˜¤!"));
 								}
 								if(isValid) {
-									allstr += "&2¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É";
+									allstr += "&2â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨";
 									s.sendMessage(format(allstr));
 								}
 								else;
@@ -536,14 +535,14 @@ public class MoneyMain extends JavaPlugin implements Listener, TabExecutor {
 						else;
 					}
 					else {
-						s.sendMessage(format("&f&l[&c&l!&f&l] &r&6/money " + args[0] + " &c¸í·É¾î´Â ¼­¹ö ÄÜ¼Ö¿¡¼­¸¸ »ç¿ëÀÌ °¡´ÉÇÕ´Ï´Ù."));
+						s.sendMessage(format("&f&l[&c&l!&f&l] &r&6/money " + args[0] + " &cëª…ë ¹ì–´ëŠ” ì„œë²„ ì½˜ì†”ì—ì„œë§Œ ì‚¬ìš©ì´ ê°€ëŠ¥í•©ë‹ˆë‹¤."));
 					}
 				}
 				else if(contains(playerCmd, args[0])) {
 					if(s instanceof Player) {
 						Player p = (Player) s;
 						if(args[0].equalsIgnoreCase("send")) {
-							if(errorLength(args, 4, s, "/money send <company|user> <È¸»ç|»ç¿ëÀÚ¸í> <¾×¼ö>", true)) {
+							if(errorLength(args, 4, s, "/money send <company|user> <íšŒì‚¬|ì‚¬ìš©ìëª…> <ì•¡ìˆ˜>", true)) {
 								boolean isExist1 = false;
 								boolean isExist2 = false;
 								MoneyUser smu = null;
@@ -567,18 +566,18 @@ public class MoneyMain extends JavaPlugin implements Listener, TabExecutor {
 										if(isExist2) {
 											try {
 												int pmoney = Integer.parseInt(args[3]);
-												p.sendMessage(format("&2¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É\n&f&l[&a&l!&f&l] &r&b"+ mu.getUserName() + " &6°³ÀÎ°èÁÂ¿¡ &a" + pmoney + " ¿ø &6À» ¼Û±İÇÏ¿´½À´Ï´Ù."));
+												p.sendMessage(format("&2â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨\n&f&l[&a&l!&f&l] &r&b"+ mu.getUserName() + " &6ê°œì¸ê³„ì¢Œì— &a" + pmoney + " ì› &6ì„ ì†¡ê¸ˆí•˜ì˜€ìŠµë‹ˆë‹¤."));
 												mu.AddMoney(pmoney);
 												smu.RemoveMoney(pmoney);
-												p.sendMessage(format("&f&l[&a&l!&f&l] &r&6´ç½Å °èÁÂÀÇ ÀÜ¾×Àº &a" + smu.getUserMoney() + " ¿ø &6ÀÔ´Ï´Ù.\n&2¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É"));
+												p.sendMessage(format("&f&l[&a&l!&f&l] &r&6ë‹¹ì‹  ê³„ì¢Œì˜ ì”ì•¡ì€ &a" + smu.getUserMoney() + " ì› &6ì…ë‹ˆë‹¤.\n&2â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨"));
 												jsonToFile();
 											} catch(NumberFormatException e) {
-												p.sendMessage(format("&f&l[&c&l!&f&l] &r&c¾×¼ö´Â Á¤¼ö·Î ÀÔ·ÂÇÏ¼Å¾ß ÇÕ´Ï´Ù!"));
+												p.sendMessage(format("&f&l[&c&l!&f&l] &r&cì•¡ìˆ˜ëŠ” ì •ìˆ˜ë¡œ ì…ë ¥í•˜ì…”ì•¼ í•©ë‹ˆë‹¤!"));
 											}
 											
 										}
 										else {
-											p.sendMessage(format("&f&l[&c&l!&f&l] &r&cÇØ´ç °³ÀÎ°èÁÂ°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù."));
+											p.sendMessage(format("&f&l[&c&l!&f&l] &r&cí•´ë‹¹ ê°œì¸ê³„ì¢Œê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤."));
 										}
 									}
 									else if(args[1].equalsIgnoreCase("company")) {
@@ -593,26 +592,26 @@ public class MoneyMain extends JavaPlugin implements Listener, TabExecutor {
 										if(isExist2) {
 											try {
 												int pmoney = Integer.parseInt(args[3]);
-												p.sendMessage(format("&2¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É\n&f&l[&a&l!&f&l] &r&b"+ mad.getAddressName() + " &6È¸»ç°èÁÂ¿¡ &a" + pmoney + " ¿ø &6À» ¼Û±İÇÏ¿´½À´Ï´Ù."));
+												p.sendMessage(format("&2â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨\n&f&l[&a&l!&f&l] &r&b"+ mad.getAddressName() + " &6íšŒì‚¬ê³„ì¢Œì— &a" + pmoney + " ì› &6ì„ ì†¡ê¸ˆí•˜ì˜€ìŠµë‹ˆë‹¤."));
 												mad.AddMoney(pmoney);
 												smu.RemoveMoney(pmoney);
-												p.sendMessage(format("&f&l[&a&l!&f&l] &r&6´ç½Å °èÁÂÀÇ ÀÜ¾×Àº &a" + smu.getUserMoney() + " ¿ø &6ÀÔ´Ï´Ù.\n&2¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É"));
+												p.sendMessage(format("&f&l[&a&l!&f&l] &r&6ë‹¹ì‹  ê³„ì¢Œì˜ ì”ì•¡ì€ &a" + smu.getUserMoney() + " ì› &6ì…ë‹ˆë‹¤.\n&2â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨"));
 												jsonToFile();
 											} catch(NumberFormatException e) {
-												p.sendMessage(format("&f&l[&c&l!&f&l] &r&c¾×¼ö´Â Á¤¼ö·Î ÀÔ·ÂÇÏ¼Å¾ß ÇÕ´Ï´Ù!"));
+												p.sendMessage(format("&f&l[&c&l!&f&l] &r&cì•¡ìˆ˜ëŠ” ì •ìˆ˜ë¡œ ì…ë ¥í•˜ì…”ì•¼ í•©ë‹ˆë‹¤!"));
 											}
 											
 										}
 										else {
-											p.sendMessage(format("&f&l[&c&l!&f&l] &r&cÇØ´ç È¸»ç°èÁÂ°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù."));
+											p.sendMessage(format("&f&l[&c&l!&f&l] &r&cí•´ë‹¹ íšŒì‚¬ê³„ì¢Œê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤."));
 										}
 									}
 									else {
-										p.sendMessage(format("&f&l[&c&l!&f&l] &r&c¾Ë¸ÂÀº ¸í·É¾î¸¦ ÀÔ·ÂÇÏ½Ê½Ã¿À!"));
+										p.sendMessage(format("&f&l[&c&l!&f&l] &r&cì•Œë§ì€ ëª…ë ¹ì–´ë¥¼ ì…ë ¥í•˜ì‹­ì‹œì˜¤!"));
 									}
 								}
 								else {
-									p.sendMessage(format("&f&l[&c&l!&f&l] &r&c´ç½ÅÀÇ °èÁÂ°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù! ÀçÁ¢¼Ó ÇÏ½Ê½Ã¿À!"));
+									p.sendMessage(format("&f&l[&c&l!&f&l] &r&cë‹¹ì‹ ì˜ ê³„ì¢Œê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤! ì¬ì ‘ì† í•˜ì‹­ì‹œì˜¤!"));
 								}
 								
 							}
@@ -629,10 +628,10 @@ public class MoneyMain extends JavaPlugin implements Listener, TabExecutor {
 									}
 								}
 								if(isExist) {
-									p.sendMessage(format("&2¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É\n&f&l[&a&l!&f&l] &a&l°èÁÂ¸í : &r&b" + mu.getUserName() + "\n&f&l[&a&l!&f&l] &a&lÀÜ ¾× : &r&b" + mu.getUserMoney() + " &6¿ø\n&2¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É"));
+									p.sendMessage(format("&2â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨\n&f&l[&a&l!&f&l] &a&lê³„ì¢Œëª… : &r&b" + mu.getUserName() + "\n&f&l[&a&l!&f&l] &a&lì” ì•¡ : &r&b" + mu.getUserMoney() + " &6ì›\n&2â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨"));
 								}
 								else {
-									p.sendMessage(format("&f&l[&c&l!&f&l] &r&c´ç½ÅÀÇ °èÁÂ°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù! ÀçÁ¢¼Ó ÇÏ½Ê½Ã¿À!"));
+									p.sendMessage(format("&f&l[&c&l!&f&l] &r&cë‹¹ì‹ ì˜ ê³„ì¢Œê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤! ì¬ì ‘ì† í•˜ì‹­ì‹œì˜¤!"));
 								}
 								
 							}
@@ -660,20 +659,20 @@ public class MoneyMain extends JavaPlugin implements Listener, TabExecutor {
 											}
 										}
 										if(isExist) {
-											String msg = "&2¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É\n&f&l[&a&l!&f&l] &a&lÈ¸»ç °èÁÂ¸í : &r&b" + mad.getAddressName() + "\n&f&l[&a&l!&f&l] &a&lÀÜ    ¾× : &r&b" + mad.getAddressMoney() + "&6¿ø\n&f&l[&a&l!&f&l] &a&l°ü¸®ÀÚ ¸ñ·Ï : &r\n";
+											String msg = "&2â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨\n&f&l[&a&l!&f&l] &a&líšŒì‚¬ ê³„ì¢Œëª… : &r&b" + mad.getAddressName() + "\n&f&l[&a&l!&f&l] &a&lì”    ì•¡ : &r&b" + mad.getAddressMoney() + "&6ì›\n&f&l[&a&l!&f&l] &a&lê´€ë¦¬ì ëª©ë¡ : &r\n";
 											for(int j = 0; j < mad.getAddressPlayer().size(); j++) {
 												msg += "   &r&f&l[&6&l!&f&l] &r&b" + mad.getAddressPlayer().get(j).getUserName() + "\n";
 											}
-											msg += "&r&2¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É";
+											msg += "&r&2â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨";
 											p.sendMessage(format(msg));
 										}
 										else {
-											p.sendMessage(format("&f&l[&c&l!&f&l] &r&c´ç½ÅÀº È¸»çÀÇ ¼ÒÀ¯ÁÖ°¡ ¾Æ´Õ´Ï´Ù!"));
+											p.sendMessage(format("&f&l[&c&l!&f&l] &r&cë‹¹ì‹ ì€ íšŒì‚¬ì˜ ì†Œìœ ì£¼ê°€ ì•„ë‹™ë‹ˆë‹¤!"));
 										}
 									}
 								}
 								else if(args[1].equalsIgnoreCase("create")) {
-									if(errorLength(args, 3, s, "/money company create <È¸»ç¸í>", true)) {
+									if(errorLength(args, 3, s, "/money company create <íšŒì‚¬ëª…>", true)) {
 										boolean isAlready = false;
 										boolean isExist = false;
 										for(int i = 0; i < address.size(); i++) {
@@ -696,20 +695,20 @@ public class MoneyMain extends JavaPlugin implements Listener, TabExecutor {
 													MoneyAddress mad = new MoneyAddress(args[2], mu);
 													address.add(new MoneyAddress(args[2], mu));
 													mu.RemoveMoney(500);
-													p.sendMessage(format("&2¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É\n&f&l[&a&l!&f&l] &r&aÈ¸»ç°¡ »ı¼ºµÇ¾ú½À´Ï´Ù.\n&f&l[&a&l!&f&l] &a&lÈ¸»ç¸í : &r&b" + mad.getAddressName() + "\n&r&f&l[&6&l!&f&l] &e&n¡Ø È¸»ç »ı¼º ½Ã °³ÀÎ °èÁÂ¿¡¼­ 500¿øÀÌ Â÷°¨µË´Ï´Ù.\n&r&2¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É"));
+													p.sendMessage(format("&2â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨\n&f&l[&a&l!&f&l] &r&aíšŒì‚¬ê°€ ìƒì„±ë˜ì—ˆìŠµë‹ˆë‹¤.\n&f&l[&a&l!&f&l] &a&líšŒì‚¬ëª… : &r&b" + mad.getAddressName() + "\n&r&f&l[&6&l!&f&l] &e&nâ€» íšŒì‚¬ ìƒì„± ì‹œ ê°œì¸ ê³„ì¢Œì—ì„œ 500ì›ì´ ì°¨ê°ë©ë‹ˆë‹¤.\n&r&2â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨"));
 													jsonToFile();
 												}
 												else {
-													p.sendMessage(format("&f&l[&c&l!&f&l] &r&cÀÌ¹Ì Á¸ÀçÇÏ´Â È¸»ç¸íÀÔ´Ï´Ù! ´Ù¸¥ ÀÌ¸§À» »ç¿ëÇÏ½Ê½Ã¿À!"));
+													p.sendMessage(format("&f&l[&c&l!&f&l] &r&cì´ë¯¸ ì¡´ì¬í•˜ëŠ” íšŒì‚¬ëª…ì…ë‹ˆë‹¤! ë‹¤ë¥¸ ì´ë¦„ì„ ì‚¬ìš©í•˜ì‹­ì‹œì˜¤!"));
 												}
 												
 											}
 											else {
-												p.sendMessage(format("&f&l[&c&l!&f&l] &r&c´ç½ÅÀÇ °èÁÂ°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù! ÀçÁ¢¼Ó ÇÏ½Ê½Ã¿À!"));
+												p.sendMessage(format("&f&l[&c&l!&f&l] &r&cë‹¹ì‹ ì˜ ê³„ì¢Œê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤! ì¬ì ‘ì† í•˜ì‹­ì‹œì˜¤!"));
 											}
 										}
 										else {
-											p.sendMessage(format("&f&l[&c&l!&f&l] &r&cÀÌ¹Ì È¸»ç¸¦ ¼ÒÀ¯ÇÏ°í ÀÖ½À´Ï´Ù! °³ÀÎ´ç 1°³ÀÇ È¸»ç¸¸ ¼ÒÀ¯ °¡´ÉÇÕ´Ï´Ù!"));
+											p.sendMessage(format("&f&l[&c&l!&f&l] &r&cì´ë¯¸ íšŒì‚¬ë¥¼ ì†Œìœ í•˜ê³  ìˆìŠµë‹ˆë‹¤! ê°œì¸ë‹¹ 1ê°œì˜ íšŒì‚¬ë§Œ ì†Œìœ  ê°€ëŠ¥í•©ë‹ˆë‹¤!"));
 										}
 									}
 								}
@@ -735,29 +734,29 @@ public class MoneyMain extends JavaPlugin implements Listener, TabExecutor {
 												}
 											}
 											if(isExist2) {
-												if(p.getInventory().getItemInMainHand().getType() == Material.PAPER && p.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase("È®ÀÎ¼­")) {
+												if(p.getInventory().getItemInMainHand().getType() == Material.PAPER && p.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase("í™•ì¸ì„œ")) {
 													int dmoney = (int) Math.round(address.get(num).getAddressMoney() * 0.90);
 													mu.AddMoney(dmoney);
-													p.sendMessage(format("&2¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É\n&f&l[&c&l!&f&l] &r&cÈ®ÀÎ¼­ ÀÎÁõµÊ.\n&r&f&l[&c&l!&f&l] &r&cÈ¸»ç°¡ ¸Å°¢µÇ¾ú½À´Ï´Ù.\n&r&f&l[&c&l!&f&l] &r&c&lÈ¸ »ç ¸í : &r&6" + address.get(num).getAddressName() + "\n&r&f&l[&c&l!&f&l] &r&c&l´ëÇ¥ ¸Å¼ö¾× : &r&6" + dmoney + "&r&c ¿ø\n&r&f&l[&c&l!&f&l] &r&c&nÈ¸»ç ¸Å°¢ ½Ã È¸»ç Àç»êÀÇ 10%´Â ¼¼±İÀ¸·Î ³³ºÎµË´Ï´Ù.\n&r&2¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É"));
+													p.sendMessage(format("&2â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨\n&f&l[&c&l!&f&l] &r&cí™•ì¸ì„œ ì¸ì¦ë¨.\n&r&f&l[&c&l!&f&l] &r&cíšŒì‚¬ê°€ ë§¤ê°ë˜ì—ˆìŠµë‹ˆë‹¤.\n&r&f&l[&c&l!&f&l] &r&c&líšŒ ì‚¬ ëª… : &r&6" + address.get(num).getAddressName() + "\n&r&f&l[&c&l!&f&l] &r&c&lëŒ€í‘œ ë§¤ìˆ˜ì•¡ : &r&6" + dmoney + "&r&c ì›\n&r&f&l[&c&l!&f&l] &r&c&níšŒì‚¬ ë§¤ê° ì‹œ íšŒì‚¬ ì¬ì‚°ì˜ 10%ëŠ” ì„¸ê¸ˆìœ¼ë¡œ ë‚©ë¶€ë©ë‹ˆë‹¤.\n&r&2â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨"));
 													address.remove(num);
 													p.getInventory().clear(p.getInventory().getHeldItemSlot());
 													jsonToFile();
 												}
 												else {
-													p.sendMessage(format("&f&l[&c&l!&f&l] &r&c¼Õ¿¡ È®ÀÎ¼­¸¦ µé°í ¸í·É¾î¸¦ »ç¿ëÇÏ½Ê½Ã¿À!\n&r&f&l[&c&l!&f&l] &r&6/money company certificate &c¸í·É¾î¸¦ ÅëÇØ ¾òÀ» ¼ö ÀÖ½À´Ï´Ù!"));
+													p.sendMessage(format("&f&l[&c&l!&f&l] &r&cì†ì— í™•ì¸ì„œë¥¼ ë“¤ê³  ëª…ë ¹ì–´ë¥¼ ì‚¬ìš©í•˜ì‹­ì‹œì˜¤!\n&r&f&l[&c&l!&f&l] &r&6/money company certificate &cëª…ë ¹ì–´ë¥¼ í†µí•´ ì–»ì„ ìˆ˜ ìˆìŠµë‹ˆë‹¤!"));
 												}
 											}
 											else {
-												p.sendMessage(format("&f&l[&c&l!&f&l] &r&c´ç½ÅÀÇ °èÁÂ°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù! ÀçÁ¢¼Ó ÇÏ½Ê½Ã¿À!"));
+												p.sendMessage(format("&f&l[&c&l!&f&l] &r&cë‹¹ì‹ ì˜ ê³„ì¢Œê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤! ì¬ì ‘ì† í•˜ì‹­ì‹œì˜¤!"));
 											}
 										}
 										else {
-											p.sendMessage(format("&f&l[&c&l!&f&l] &r&c´ç½ÅÀº È¸»çÀÇ ¼ÒÀ¯ÁÖ°¡ ¾Æ´Õ´Ï´Ù!"));
+											p.sendMessage(format("&f&l[&c&l!&f&l] &r&cë‹¹ì‹ ì€ íšŒì‚¬ì˜ ì†Œìœ ì£¼ê°€ ì•„ë‹™ë‹ˆë‹¤!"));
 										}
 									}
 								}
 								else if(args[1].equalsIgnoreCase("add")) {
-									if(errorLength(args, 3, s, "/money company add <»ç¿ëÀÚ¸í>", true)) {
+									if(errorLength(args, 3, s, "/money company add <ì‚¬ìš©ìëª…>", true)) {
 										MoneyAddress mad = null;
 										boolean isExist = false;
 										boolean isExist2 = false;
@@ -790,28 +789,28 @@ public class MoneyMain extends JavaPlugin implements Listener, TabExecutor {
 												if(!(mad.getAddressPlayer().contains(smu))) {
 													if(!isAlready) {
 														mad.AddUser(smu);
-														p.sendMessage(format("&f&l[&a&l!&f&l] &6" + smu.getUserName() + " &aÀ»(¸¦) È¸»ç °ü¸®ÀÚ·Î ÀÓ¸íÇß½À´Ï´Ù."));
+														p.sendMessage(format("&f&l[&a&l!&f&l] &6" + smu.getUserName() + " &aì„(ë¥¼) íšŒì‚¬ ê´€ë¦¬ìë¡œ ì„ëª…í–ˆìŠµë‹ˆë‹¤."));
 														jsonToFile();
 													}
 													else {
-														p.sendMessage(format("&f&l[&c&l!&f&l] &r&cÇØ´ç »ç¿ëÀÚ´Â ÀÌ¹Ì ´Ù¸¥ È¸»çÀÇ °ü¸®ÀÚÀÔ´Ï´Ù."));
+														p.sendMessage(format("&f&l[&c&l!&f&l] &r&cí•´ë‹¹ ì‚¬ìš©ìëŠ” ì´ë¯¸ ë‹¤ë¥¸ íšŒì‚¬ì˜ ê´€ë¦¬ìì…ë‹ˆë‹¤."));
 													}
 												}
 												else {
-													p.sendMessage(format("&f&l[&c&l!&f&l] &r&cÇØ´ç »ç¿ëÀÚ´Â ÀÌ¹Ì °ü¸®ÀÚÀÔ´Ï´Ù."));
+													p.sendMessage(format("&f&l[&c&l!&f&l] &r&cí•´ë‹¹ ì‚¬ìš©ìëŠ” ì´ë¯¸ ê´€ë¦¬ìì…ë‹ˆë‹¤."));
 												}
 											}
 											else {
-												p.sendMessage(format("&f&l[&c&l!&f&l] &r&cÇØ´ç °³ÀÎ°èÁÂ°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù."));
+												p.sendMessage(format("&f&l[&c&l!&f&l] &r&cí•´ë‹¹ ê°œì¸ê³„ì¢Œê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤."));
 											}
 										}
 										else {
-											p.sendMessage(format("&f&l[&c&l!&f&l] &r&c´ç½ÅÀº È¸»çÀÇ ¼ÒÀ¯ÁÖ°¡ ¾Æ´Õ´Ï´Ù!"));
+											p.sendMessage(format("&f&l[&c&l!&f&l] &r&cë‹¹ì‹ ì€ íšŒì‚¬ì˜ ì†Œìœ ì£¼ê°€ ì•„ë‹™ë‹ˆë‹¤!"));
 										}
 									}
 								}
 								else if(args[1].equalsIgnoreCase("remove")) {
-									if(errorLength(args, 3, s, "/money company remove <»ç¿ëÀÚ¸í>", true)) {
+									if(errorLength(args, 3, s, "/money company remove <ì‚¬ìš©ìëª…>", true)) {
 										MoneyAddress mad = null;
 										boolean isExist = false;
 										boolean isExist2 = false;
@@ -834,28 +833,28 @@ public class MoneyMain extends JavaPlugin implements Listener, TabExecutor {
 											if(isExist2) {
 												if(!(smu.getUserUUID().equals(p.getUniqueId()))) {
 													if(mad.DeleteUser(smu)) {
-														p.sendMessage(format("&f&l[&c&l!&f&l] &6" + smu.getUserName() + " &cÀ»(¸¦) È¸»ç °ü¸®ÀÚ¿¡¼­ ¹ÚÅ»Çß½À´Ï´Ù."));
+														p.sendMessage(format("&f&l[&c&l!&f&l] &6" + smu.getUserName() + " &cì„(ë¥¼) íšŒì‚¬ ê´€ë¦¬ìì—ì„œ ë°•íƒˆí–ˆìŠµë‹ˆë‹¤."));
 														jsonToFile();
 													}
 													else {
-														p.sendMessage(format("&f&l[&c&l!&f&l] &r&cÇØ´ç »ç¿ëÀÚ´Â ´ç½Å È¸»çÀÇ È¸»ç °ü¸®ÀÚ°¡ ¾Æ´Õ´Ï´Ù."));
+														p.sendMessage(format("&f&l[&c&l!&f&l] &r&cí•´ë‹¹ ì‚¬ìš©ìëŠ” ë‹¹ì‹  íšŒì‚¬ì˜ íšŒì‚¬ ê´€ë¦¬ìê°€ ì•„ë‹™ë‹ˆë‹¤."));
 													}	
 												}
 												else {
-													p.sendMessage(format("&f&l[&c&l!&f&l] &r&c°ü¸®ÀÚ ¸ñ·Ï¿¡¼­ ´ëÇ¥ÀÚ¸¦ »èÁ¦ÇÒ ¼ö ¾ø½À´Ï´Ù."));
+													p.sendMessage(format("&f&l[&c&l!&f&l] &r&cê´€ë¦¬ì ëª©ë¡ì—ì„œ ëŒ€í‘œìë¥¼ ì‚­ì œí•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."));
 												}
 											}
 											else {
-												p.sendMessage(format("&f&l[&c&l!&f&l] &r&cÇØ´ç °³ÀÎ°èÁÂ°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù."));
+												p.sendMessage(format("&f&l[&c&l!&f&l] &r&cí•´ë‹¹ ê°œì¸ê³„ì¢Œê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤."));
 											}
 										}
 										else {
-											p.sendMessage(format("&f&l[&c&l!&f&l] &r&c´ç½ÅÀº È¸»çÀÇ ¼ÒÀ¯ÁÖ°¡ ¾Æ´Õ´Ï´Ù!"));
+											p.sendMessage(format("&f&l[&c&l!&f&l] &r&cë‹¹ì‹ ì€ íšŒì‚¬ì˜ ì†Œìœ ì£¼ê°€ ì•„ë‹™ë‹ˆë‹¤!"));
 										}
 									}
 								}
 								else if(args[1].equalsIgnoreCase("send")) {
-									if(errorLength(args, 5, s, "/money company send <company|user> <È¸»ç¸í|»ç¿ëÀÚ¸í> <¾×¼ö>", true)) {
+									if(errorLength(args, 5, s, "/money company send <company|user> <íšŒì‚¬ëª…|ì‚¬ìš©ìëª…> <ì•¡ìˆ˜>", true)) {
 										boolean isExist1 = false;
 										boolean isExist2 = false;
 										MoneyAddress mad = null;
@@ -879,18 +878,18 @@ public class MoneyMain extends JavaPlugin implements Listener, TabExecutor {
 												if(isExist2) {
 													try {
 														int pmoney = Integer.parseInt(args[4]);
-														p.sendMessage(format("&2¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É\n&f&l[&a&l!&f&l] &r&b"+ mu.getUserName() + " &6°³ÀÎ°èÁÂ¿¡ &a" + pmoney + " ¿ø &6À» ¼Û±İÇÏ¿´½À´Ï´Ù."));
+														p.sendMessage(format("&2â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨\n&f&l[&a&l!&f&l] &r&b"+ mu.getUserName() + " &6ê°œì¸ê³„ì¢Œì— &a" + pmoney + " ì› &6ì„ ì†¡ê¸ˆí•˜ì˜€ìŠµë‹ˆë‹¤."));
 														mu.AddMoney(pmoney);
 														mad.RemoveMoney(pmoney);
-														p.sendMessage(format("&f&l[&a&l!&f&l] &r&b" + mad.getAddressName() +  " &6È¸»ç°èÁÂÀÇ ÀÜ¾×Àº &a" + mad.getAddressMoney() + " ¿ø &6ÀÔ´Ï´Ù.\n&2¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É"));
+														p.sendMessage(format("&f&l[&a&l!&f&l] &r&b" + mad.getAddressName() +  " &6íšŒì‚¬ê³„ì¢Œì˜ ì”ì•¡ì€ &a" + mad.getAddressMoney() + " ì› &6ì…ë‹ˆë‹¤.\n&2â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨"));
 														jsonToFile();
 													} catch(NumberFormatException e) {
-														p.sendMessage(format("&f&l[&c&l!&f&l] &r&c¾×¼ö´Â Á¤¼ö·Î ÀÔ·ÂÇÏ¼Å¾ß ÇÕ´Ï´Ù!"));
+														p.sendMessage(format("&f&l[&c&l!&f&l] &r&cì•¡ìˆ˜ëŠ” ì •ìˆ˜ë¡œ ì…ë ¥í•˜ì…”ì•¼ í•©ë‹ˆë‹¤!"));
 													}
 													
 												}
 												else {
-													p.sendMessage(format("&f&l[&c&l!&f&l] &r&cÇØ´ç °³ÀÎ°èÁÂ°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù."));
+													p.sendMessage(format("&f&l[&c&l!&f&l] &r&cí•´ë‹¹ ê°œì¸ê³„ì¢Œê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤."));
 												}
 											}
 											else if(args[2].equalsIgnoreCase("company")) {
@@ -905,31 +904,31 @@ public class MoneyMain extends JavaPlugin implements Listener, TabExecutor {
 												if(isExist2) {
 													try {
 														int pmoney = Integer.parseInt(args[4]);
-														p.sendMessage(format("&2¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É\n&f&l[&a&l!&f&l] &r&b"+ mad2.getAddressName() + " &6È¸»ç°èÁÂ¿¡ &a" + pmoney + " ¿ø &6À» ¼Û±İÇÏ¿´½À´Ï´Ù."));
+														p.sendMessage(format("&2â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨\n&f&l[&a&l!&f&l] &r&b"+ mad2.getAddressName() + " &6íšŒì‚¬ê³„ì¢Œì— &a" + pmoney + " ì› &6ì„ ì†¡ê¸ˆí•˜ì˜€ìŠµë‹ˆë‹¤."));
 														mad2.AddMoney(pmoney);
 														mad.RemoveMoney(pmoney);
-														p.sendMessage(format("&f&l[&a&l!&f&l] &r&6´ç½Å È¸»ç°èÁÂÀÇ ÀÜ¾×Àº &a" + mad.getAddressMoney() + " ¿ø &6ÀÔ´Ï´Ù.\n&2¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É"));
+														p.sendMessage(format("&f&l[&a&l!&f&l] &r&6ë‹¹ì‹  íšŒì‚¬ê³„ì¢Œì˜ ì”ì•¡ì€ &a" + mad.getAddressMoney() + " ì› &6ì…ë‹ˆë‹¤.\n&2â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨"));
 														jsonToFile();
 													} catch(NumberFormatException e) {
-														p.sendMessage(format("&f&l[&c&l!&f&l] &r&c¾×¼ö´Â Á¤¼ö·Î ÀÔ·ÂÇÏ¼Å¾ß ÇÕ´Ï´Ù!"));
+														p.sendMessage(format("&f&l[&c&l!&f&l] &r&cì•¡ìˆ˜ëŠ” ì •ìˆ˜ë¡œ ì…ë ¥í•˜ì…”ì•¼ í•©ë‹ˆë‹¤!"));
 													}
 													
 												}
 												else {
-													p.sendMessage(format("&f&l[&c&l!&f&l] &r&cÇØ´ç È¸»ç°èÁÂ°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù."));
+													p.sendMessage(format("&f&l[&c&l!&f&l] &r&cí•´ë‹¹ íšŒì‚¬ê³„ì¢Œê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤."));
 												}
 											}
 											else {
-												p.sendMessage(format("&f&l[&c&l!&f&l] &r&c¾Ë¸ÂÀº ¸í·É¾î¸¦ ÀÔ·ÂÇÏ½Ê½Ã¿À!"));
+												p.sendMessage(format("&f&l[&c&l!&f&l] &r&cì•Œë§ì€ ëª…ë ¹ì–´ë¥¼ ì…ë ¥í•˜ì‹­ì‹œì˜¤!"));
 											}
 										}
 										else {
-											p.sendMessage(format("&f&l[&c&l!&f&l] &r&c´ç½ÅÀÇ °èÁÂ°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù! ÀçÁ¢¼Ó ÇÏ½Ê½Ã¿À!"));
+											p.sendMessage(format("&f&l[&c&l!&f&l] &r&cë‹¹ì‹ ì˜ ê³„ì¢Œê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤! ì¬ì ‘ì† í•˜ì‹­ì‹œì˜¤!"));
 										}
 									}
 								}
 								else if(args[1].equalsIgnoreCase("handover")) {
-									if(errorLength(args, 3, s, "/money company handover <»ç¿ëÀÚ¸í>", true)) {
+									if(errorLength(args, 3, s, "/money company handover <ì‚¬ìš©ìëª…>", true)) {
 										MoneyAddress mad = null;
 										MoneyUser mu = null;
 										Player sp = null;
@@ -960,9 +959,9 @@ public class MoneyMain extends JavaPlugin implements Listener, TabExecutor {
 													}
 												}
 												if(isInServer) {
-													if((p.getInventory().getItemInMainHand().getType() == Material.PAPER && p.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase("È®ÀÎ¼­")) && (sp.getInventory().getItemInMainHand().getType() == Material.PAPER && sp.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase("È®ÀÎ¼­"))) {
-														p.sendMessage(format("&2¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É\n&f&l[&c&l!&f&l] &r&6" + mad.getAddressName() + " &cÈ¸»çÀÇ ´ëÇ¥ ±ÇÇÑÀ» &6" + sp.getName() + " &c¿¡°Ô·Î ¾çµµÇß½À´Ï´Ù.\n&r&f&l[&c&l!&f&l] &r&c&nÈ¸»ç ´ëÇ¥±Ç ¾çµµ ½Ã È¸»ç Àç»êÀÇ 5%´Â ¼¼±İÀ¸·Î ³³ºÎµË´Ï´Ù.\n&2¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É"));
-														sp.sendMessage(format("&2¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É\n&f&l[&c&l!&f&l] &r&6" + mad.getAddressName() + " &cÈ¸»çÀÇ ´ëÇ¥ ±ÇÇÑÀÌ ´ç½Å¿¡°Ô ¾çµµµÇ¾ú½À´Ï´Ù.\n&r&f&l[&c&l!&f&l] &r&c&nÈ¸»ç ´ëÇ¥±Ç ¾çµµ ½Ã È¸»ç Àç»êÀÇ 5%´Â ¼¼±İÀ¸·Î ³³ºÎµË´Ï´Ù.\n&2¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É"));
+													if((p.getInventory().getItemInMainHand().getType() == Material.PAPER && p.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase("í™•ì¸ì„œ")) && (sp.getInventory().getItemInMainHand().getType() == Material.PAPER && sp.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase("í™•ì¸ì„œ"))) {
+														p.sendMessage(format("&2â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨\n&f&l[&c&l!&f&l] &r&6" + mad.getAddressName() + " &cíšŒì‚¬ì˜ ëŒ€í‘œ ê¶Œí•œì„ &6" + sp.getName() + " &cì—ê²Œë¡œ ì–‘ë„í–ˆìŠµë‹ˆë‹¤.\n&r&f&l[&c&l!&f&l] &r&c&níšŒì‚¬ ëŒ€í‘œê¶Œ ì–‘ë„ ì‹œ íšŒì‚¬ ì¬ì‚°ì˜ 5%ëŠ” ì„¸ê¸ˆìœ¼ë¡œ ë‚©ë¶€ë©ë‹ˆë‹¤.\n&2â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨"));
+														sp.sendMessage(format("&2â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨\n&f&l[&c&l!&f&l] &r&6" + mad.getAddressName() + " &cíšŒì‚¬ì˜ ëŒ€í‘œ ê¶Œí•œì´ ë‹¹ì‹ ì—ê²Œ ì–‘ë„ë˜ì—ˆìŠµë‹ˆë‹¤.\n&r&f&l[&c&l!&f&l] &r&c&níšŒì‚¬ ëŒ€í‘œê¶Œ ì–‘ë„ ì‹œ íšŒì‚¬ ì¬ì‚°ì˜ 5%ëŠ” ì„¸ê¸ˆìœ¼ë¡œ ë‚©ë¶€ë©ë‹ˆë‹¤.\n&2â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨"));
 														p.getInventory().clear(p.getInventory().getHeldItemSlot());
 														sp.getInventory().clear(sp.getInventory().getHeldItemSlot());
 														int dmoney = (int) Math.round(mad.getAddressMoney() * 0.05);
@@ -971,50 +970,50 @@ public class MoneyMain extends JavaPlugin implements Listener, TabExecutor {
 														jsonToFile();
 													}
 													else {
-														p.sendMessage(format("&f&l[&c&l!&f&l] &r&c¾çµµÀÚ¿Í ´ë»óÀÚ ¸ğµÎ ¼Õ¿¡ ÀÎÁõ¼­¸¦ µé°í ÀÖ¾î¾ß ÇÕ´Ï´Ù!\n&r&f&l[&c&l!&f&l] &r&6/money company certificate &c¸í·É¾î¸¦ ÅëÇØ ¾òÀ» ¼ö ÀÖ½À´Ï´Ù!"));
+														p.sendMessage(format("&f&l[&c&l!&f&l] &r&cì–‘ë„ìì™€ ëŒ€ìƒì ëª¨ë‘ ì†ì— ì¸ì¦ì„œë¥¼ ë“¤ê³  ìˆì–´ì•¼ í•©ë‹ˆë‹¤!\n&r&f&l[&c&l!&f&l] &r&6/money company certificate &cëª…ë ¹ì–´ë¥¼ í†µí•´ ì–»ì„ ìˆ˜ ìˆìŠµë‹ˆë‹¤!"));
 													}
 												}
 												else {
-													p.sendMessage(format("&f&l[&c&l!&f&l] &r&c¾çµµ ´ë»óÀÚ°¡ ÇöÀç ¼­¹ö¿¡ Á¸ÀçÇØ¾ß ÇÕ´Ï´Ù!"));
+													p.sendMessage(format("&f&l[&c&l!&f&l] &r&cì–‘ë„ ëŒ€ìƒìê°€ í˜„ì¬ ì„œë²„ì— ì¡´ì¬í•´ì•¼ í•©ë‹ˆë‹¤!"));
 												}
 											}
 											else {
-												p.sendMessage(format("&f&l[&c&l!&f&l] &r&c´ëÇ¥ ±ÇÇÑ ¾çµµ´Â È¸»ç °èÁÂ °ü¸®ÀÚ¿¡°Ô¸¸ ÇÒ ¼ö ÀÖ½À´Ï´Ù!"));
+												p.sendMessage(format("&f&l[&c&l!&f&l] &r&cëŒ€í‘œ ê¶Œí•œ ì–‘ë„ëŠ” íšŒì‚¬ ê³„ì¢Œ ê´€ë¦¬ìì—ê²Œë§Œ í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤!"));
 											}
 										}
 										else {
-											p.sendMessage(format("&f&l[&c&l!&f&l] &r&c´ç½ÅÀº È¸»çÀÇ ¼ÒÀ¯ÁÖ°¡ ¾Æ´Õ´Ï´Ù!"));
+											p.sendMessage(format("&f&l[&c&l!&f&l] &r&cë‹¹ì‹ ì€ íšŒì‚¬ì˜ ì†Œìœ ì£¼ê°€ ì•„ë‹™ë‹ˆë‹¤!"));
 										}
 									}
 								}
 								else if(args[1].equalsIgnoreCase("certificate")) {
 									if(errorLength(args, 2, s, "/money company certificate", true)) {
 										List<String> itemLore = new ArrayList<String>();
-										itemLore.add(format("&cÈ¸»ç ¸Å°¢ ½Ã ÇÊ¿äÇÑ È®ÀÎ¼­ÀÔ´Ï´Ù."));
-										itemLore.add(format("&c¿À¸¥¼Õ¿¡ µé°í »ç¿ëÇÏ½Ê½Ã¿À."));
+										itemLore.add(format("&cíšŒì‚¬ ë§¤ê° ì‹œ í•„ìš”í•œ í™•ì¸ì„œì…ë‹ˆë‹¤."));
+										itemLore.add(format("&cì˜¤ë¥¸ì†ì— ë“¤ê³  ì‚¬ìš©í•˜ì‹­ì‹œì˜¤."));
 										ItemStack stack = new ItemStack(Material.PAPER);
 										ItemMeta meta = stack.getItemMeta();
-										meta.setDisplayName("È®ÀÎ¼­");
+										meta.setDisplayName("í™•ì¸ì„œ");
 										meta.setLore(itemLore);
 										stack.setItemMeta(meta);
 										p.getInventory().setItemInOffHand(stack);
-										p.sendMessage(format("&f&l[&a&l!&f&l] &a¿Ş¼Õ¿¡ È¸»ç ¸Å°¢ È®ÀÎ¼­°¡ Áö±ŞµÇ¾ú½À´Ï´Ù."));
+										p.sendMessage(format("&f&l[&a&l!&f&l] &aì™¼ì†ì— íšŒì‚¬ ë§¤ê° í™•ì¸ì„œê°€ ì§€ê¸‰ë˜ì—ˆìŠµë‹ˆë‹¤."));
 									}
 								}
 								else {
-									p.sendMessage(format("&f&l[&c&l!&f&l] &r&c¾Ë¸ÂÀº ¸í·É¾î¸¦ ÀÔ·ÂÇÏ½Ê½Ã¿À!"));
+									p.sendMessage(format("&f&l[&c&l!&f&l] &r&cì•Œë§ì€ ëª…ë ¹ì–´ë¥¼ ì…ë ¥í•˜ì‹­ì‹œì˜¤!"));
 								}
 							}
 						}
 					}
 					else {
-						s.sendMessage(format("&f&l[&c&l!&f&l] &r&6/money " + args[0] + " &c¸í·É¾î´Â ÇÃ·¹ÀÌ¾î¸¸ »ç¿ëÀÌ °¡´ÉÇÕ´Ï´Ù."));
+						s.sendMessage(format("&f&l[&c&l!&f&l] &r&6/money " + args[0] + " &cëª…ë ¹ì–´ëŠ” í”Œë ˆì´ì–´ë§Œ ì‚¬ìš©ì´ ê°€ëŠ¥í•©ë‹ˆë‹¤."));
 					}
 				}
 				else {
 					if(args[0].equalsIgnoreCase("help")) {
 						if(errorLength(args, 1, s, "/money help", true)) {
-							s.sendMessage(format("&2¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É\n&r&f&l[&a&l!&f&l] &r&b/money add <company|user> <È¸»ç¸í|»ç¿ëÀÚ¸í> <¾×¼ö>\n   &6¢ÃÇØ´ç È¸»ç³ª »ç¿ëÀÚ¿¡°Ô µ·À» Áö±ŞÇÕ´Ï´Ù.\n&r&f&l[&a&l!&f&l] &r&b/money subtract <company|user> <È¸»ç¸í|»ç¿ëÀÚ¸í> <¾×¼ö>\n   &6¢ÃÇØ´ç È¸»ç³ª »ç¿ëÀÚ¿¡¼­ µ·À» Â÷°¨ÇÕ´Ï´Ù.\n&r&f&l[&a&l!&f&l] &r&b/money give <company|user> <È¸»ç¸í1|»ç¿ëÀÚ¸í1> <company|user> <È¸»ç¸í2|»ç¿ëÀÚ¸í2> <¾×¼ö>\n   &6¢Ã[1]¹ø °èÁÂ·ÎºÎÅÍ [2]¹ø °èÁÂ·Î µ·À» º¸³À´Ï´Ù.\n&r&f&l[&a&l!&f&l] &r&b/money list <company|user>\n   &6¢Ã¼­¹ö¿¡ Á¸ÀçÇÏ´Â ¸ğµç °³ÀÎ°èÁÂ³ª È¸»ç°èÁÂ¸¦ È®ÀÎÇÕ´Ï´Ù.\n&r&f&l[&a&l!&f&l] &r&b/money all\n   &6¢Ã¼­¹ö¿¡ Á¸ÀçÇÏ´Â ÃÑ ÅëÈ­·®À» È®ÀÎÇÕ´Ï´Ù.\n&r&6&l-----------------------\n&r&f&l[&9&l!&f&l] &r&b/money check\n   &6¢Ãº»ÀÎ °èÁÂÀÇ ÀÜ¾× ÇöÈ²À» È®ÀÎÇÕ´Ï´Ù.\n&r&f&l[&9&l!&f&l] &r&b/money send <company|user> <È¸»ç¸í|»ç¿ëÀÚ¸í> <¾×¼ö>\n   &6¢Ãº»ÀÎ °èÁÂ¿¡¼­ ÇØ´ç È¸»ç³ª »ç¿ëÀÚ¿¡°Ô µ·À» ¼Û±İÇÕ´Ï´Ù.\n&r&f&l[&9&l!&f&l] &r&b/money company <create|disposal|check|add|remove|send|handover|certificate>\n   &r&f&l[&6&l!&f&l] &r&b/money company create <È¸»ç¸í>\n      &6¢Ãº»ÀÎ ¼ÒÀ¯ÀÇ È¸»ç¸¦ »ı¼ºÇÕ´Ï´Ù.\n       &c¡Øº»ÀÎ ¼ÒÀ¯ÀÇ È¸»ç´Â 1°³¸¸ »ı¼º °¡´ÉÇÕ´Ï´Ù.\n   &r&f&l[&6&l!&f&l] &r&b/money company disposal\n      &6¢Ãº»ÀÎ ¼ÒÀ¯ÀÇ È¸»ç¸¦ Á¤ºÎ¿¡ ¸Å°¢ÇÕ´Ï´Ù. &r&d&l¢¼\n       &c¡Øº» ¸í·É¾î »ç¿ë ½Ã È¸»ç ÀÚº»ÀÇ 10%´Â ¼¼±İÀ¸·Î ³³ºÎµË´Ï´Ù.\n   &r&f&l[&6&l!&f&l] &r&b/money company add <»ç¿ëÀÚ¸í>\n      &6¢ÃÇØ´ç »ç¿ëÀÚ¸¦ È¸»ç °èÁÂÀÇ °ü¸®ÀÎÀ¸·Î ÀÓ¸íÇÕ´Ï´Ù.\n       &6¡Ø°ü¸®ÀÎÀº /money company check ±îÁöÀÇ ±ÇÇÑÀ» °¡Áı´Ï´Ù.\n   &r&f&l[&6&l!&f&l] &r&b/money company remove <»ç¿ëÀÚ¸í>\n      &6¢ÃÇØ´ç »ç¿ëÀÚ¸¦ È¸»ç °èÁÂÀÇ °ü¸®ÀÎ¿¡¼­ ¹ÚÅ»ÇÕ´Ï´Ù.\n   &r&f&l[&6&l!&f&l] &r&b/money company send <company|user> <È¸»ç¸í|»ç¿ëÀÚ¸í> <¾×¼ö>\n      &6¢Ãº»ÀÎ È¸»ç °èÁÂ¿¡¼­ ÇØ´ç È¸»ç³ª »ç¿ëÀÚ¿¡°Ô µ·À» ¼Û±İÇÕ´Ï´Ù.\n   &r&f&l[&6&l!&f&l] &r&b/money company check\n      &6¢Ãº»ÀÎ ¼ÒÀ¯ È¸»çÀÇ ÇöÈ²À» È®ÀÎÇÕ´Ï´Ù.\n   &r&f&l[&6&l!&f&l] &r&b/money company handover <»ç¿ëÀÚ¸í>\n      &6¢ÃÇØ´ç »ç¿ëÀÚ¿¡°Ô º»ÀÎ È¸»çÀÇ ´ëÇ¥±ÇÀ» ¾çµµÇÕ´Ï´Ù. &r&d&l¢¼\n       &r&c¡ØÇØ´ç ¸í·É¾î »ç¿ë ½Ã È¸»ç ÀÚº»ÀÇ 5%°¡ ¼¼±İÀ¸·Î ³³ºÎµË´Ï´Ù.\n       &c¡Ø¾çµµ ´ë»óÀÚ´Â ÇØ´ç È¸»çÀÇ °ü¸®ÀÎÀÌ¾î¾ß ÇÕ´Ï´Ù.\n   &r&f&l[&6&l!&f&l] &r&b/money company ceftificate\n      &6¢ÃÈ¸»ç ¸Å°¢¿¡ ÇÊ¿äÇÑ ÀÎÁõ¼­¸¦ ¹ß±ŞÇÕ´Ï´Ù.\n&r&f&l[&7&l!&f&l] &r&b/money help\n   &6¢Ãº» ¸ñ·ÏÀ» Ç¥½ÃÇÕ´Ï´Ù.\n\n&r&f&l[&a&l!&f&l] &r&f¼­¹ö ÄÜ¼Ö Àü¿ë     &r&f&l[&9&l!&f&l] &r&fÇÃ·¹ÀÌ¾î Àü¿ë\n&r&f&l[&6&l!&f&l] &r&fÇÏÀ§ ¸ñ·Ï     &r&f&l[&7&l!&f&l] &r&f°ø¿ë     &r&d&l¢¼ &r&f¸Å°¢ ÀÎÁõ¼­ ÇÊ¿ä\n&r&2¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É¢É"));
+							s.sendMessage(format("&2â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨\n&r&f&l[&a&l!&f&l] &r&b/money add <company|user> <íšŒì‚¬ëª…|ì‚¬ìš©ìëª…> <ì•¡ìˆ˜>\n   &6â–£í•´ë‹¹ íšŒì‚¬ë‚˜ ì‚¬ìš©ìì—ê²Œ ëˆì„ ì§€ê¸‰í•©ë‹ˆë‹¤.\n&r&f&l[&a&l!&f&l] &r&b/money subtract <company|user> <íšŒì‚¬ëª…|ì‚¬ìš©ìëª…> <ì•¡ìˆ˜>\n   &6â–£í•´ë‹¹ íšŒì‚¬ë‚˜ ì‚¬ìš©ìì—ì„œ ëˆì„ ì°¨ê°í•©ë‹ˆë‹¤.\n&r&f&l[&a&l!&f&l] &r&b/money give <company|user> <íšŒì‚¬ëª…1|ì‚¬ìš©ìëª…1> <company|user> <íšŒì‚¬ëª…2|ì‚¬ìš©ìëª…2> <ì•¡ìˆ˜>\n   &6â–£[1]ë²ˆ ê³„ì¢Œë¡œë¶€í„° [2]ë²ˆ ê³„ì¢Œë¡œ ëˆì„ ë³´ëƒ…ë‹ˆë‹¤.\n&r&f&l[&a&l!&f&l] &r&b/money list <company|user>\n   &6â–£ì„œë²„ì— ì¡´ì¬í•˜ëŠ” ëª¨ë“  ê°œì¸ê³„ì¢Œë‚˜ íšŒì‚¬ê³„ì¢Œë¥¼ í™•ì¸í•©ë‹ˆë‹¤.\n&r&f&l[&a&l!&f&l] &r&b/money all\n   &6â–£ì„œë²„ì— ì¡´ì¬í•˜ëŠ” ì´ í†µí™”ëŸ‰ì„ í™•ì¸í•©ë‹ˆë‹¤.\n&r&6&l-----------------------\n&r&f&l[&9&l!&f&l] &r&b/money check\n   &6â–£ë³¸ì¸ ê³„ì¢Œì˜ ì”ì•¡ í˜„í™©ì„ í™•ì¸í•©ë‹ˆë‹¤.\n&r&f&l[&9&l!&f&l] &r&b/money send <company|user> <íšŒì‚¬ëª…|ì‚¬ìš©ìëª…> <ì•¡ìˆ˜>\n   &6â–£ë³¸ì¸ ê³„ì¢Œì—ì„œ í•´ë‹¹ íšŒì‚¬ë‚˜ ì‚¬ìš©ìì—ê²Œ ëˆì„ ì†¡ê¸ˆí•©ë‹ˆë‹¤.\n&r&f&l[&9&l!&f&l] &r&b/money company <create|disposal|check|add|remove|send|handover|certificate>\n   &r&f&l[&6&l!&f&l] &r&b/money company create <íšŒì‚¬ëª…>\n      &6â–£ë³¸ì¸ ì†Œìœ ì˜ íšŒì‚¬ë¥¼ ìƒì„±í•©ë‹ˆë‹¤.\n       &câ€»ë³¸ì¸ ì†Œìœ ì˜ íšŒì‚¬ëŠ” 1ê°œë§Œ ìƒì„± ê°€ëŠ¥í•©ë‹ˆë‹¤.\n   &r&f&l[&6&l!&f&l] &r&b/money company disposal\n      &6â–£ë³¸ì¸ ì†Œìœ ì˜ íšŒì‚¬ë¥¼ ì •ë¶€ì— ë§¤ê°í•©ë‹ˆë‹¤. &r&d&lâ™ \n       &câ€»ë³¸ ëª…ë ¹ì–´ ì‚¬ìš© ì‹œ íšŒì‚¬ ìë³¸ì˜ 10%ëŠ” ì„¸ê¸ˆìœ¼ë¡œ ë‚©ë¶€ë©ë‹ˆë‹¤.\n   &r&f&l[&6&l!&f&l] &r&b/money company add <ì‚¬ìš©ìëª…>\n      &6â–£í•´ë‹¹ ì‚¬ìš©ìë¥¼ íšŒì‚¬ ê³„ì¢Œì˜ ê´€ë¦¬ì¸ìœ¼ë¡œ ì„ëª…í•©ë‹ˆë‹¤.\n       &6â€»ê´€ë¦¬ì¸ì€ /money company check ê¹Œì§€ì˜ ê¶Œí•œì„ ê°€ì§‘ë‹ˆë‹¤.\n   &r&f&l[&6&l!&f&l] &r&b/money company remove <ì‚¬ìš©ìëª…>\n      &6â–£í•´ë‹¹ ì‚¬ìš©ìë¥¼ íšŒì‚¬ ê³„ì¢Œì˜ ê´€ë¦¬ì¸ì—ì„œ ë°•íƒˆí•©ë‹ˆë‹¤.\n   &r&f&l[&6&l!&f&l] &r&b/money company send <company|user> <íšŒì‚¬ëª…|ì‚¬ìš©ìëª…> <ì•¡ìˆ˜>\n      &6â–£ë³¸ì¸ íšŒì‚¬ ê³„ì¢Œì—ì„œ í•´ë‹¹ íšŒì‚¬ë‚˜ ì‚¬ìš©ìì—ê²Œ ëˆì„ ì†¡ê¸ˆí•©ë‹ˆë‹¤.\n   &r&f&l[&6&l!&f&l] &r&b/money company check\n      &6â–£ë³¸ì¸ ì†Œìœ  íšŒì‚¬ì˜ í˜„í™©ì„ í™•ì¸í•©ë‹ˆë‹¤.\n   &r&f&l[&6&l!&f&l] &r&b/money company handover <ì‚¬ìš©ìëª…>\n      &6â–£í•´ë‹¹ ì‚¬ìš©ìì—ê²Œ ë³¸ì¸ íšŒì‚¬ì˜ ëŒ€í‘œê¶Œì„ ì–‘ë„í•©ë‹ˆë‹¤. &r&d&lâ™ \n       &r&câ€»í•´ë‹¹ ëª…ë ¹ì–´ ì‚¬ìš© ì‹œ íšŒì‚¬ ìë³¸ì˜ 5%ê°€ ì„¸ê¸ˆìœ¼ë¡œ ë‚©ë¶€ë©ë‹ˆë‹¤.\n       &câ€»ì–‘ë„ ëŒ€ìƒìëŠ” í•´ë‹¹ íšŒì‚¬ì˜ ê´€ë¦¬ì¸ì´ì–´ì•¼ í•©ë‹ˆë‹¤.\n   &r&f&l[&6&l!&f&l] &r&b/money company ceftificate\n      &6â–£íšŒì‚¬ ë§¤ê°ì— í•„ìš”í•œ ì¸ì¦ì„œë¥¼ ë°œê¸‰í•©ë‹ˆë‹¤.\n&r&f&l[&7&l!&f&l] &r&b/money help\n   &6â–£ë³¸ ëª©ë¡ì„ í‘œì‹œí•©ë‹ˆë‹¤.\n\n&r&f&l[&a&l!&f&l] &r&fì„œë²„ ì½˜ì†” ì „ìš©     &r&f&l[&9&l!&f&l] &r&fí”Œë ˆì´ì–´ ì „ìš©\n&r&f&l[&6&l!&f&l] &r&fí•˜ìœ„ ëª©ë¡     &r&f&l[&7&l!&f&l] &r&fê³µìš©     &r&d&lâ™  &r&fë§¤ê° ì¸ì¦ì„œ í•„ìš”\n&r&2â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨â–¨"));
 						}
 					}
 				}
@@ -1040,7 +1039,7 @@ public class MoneyMain extends JavaPlugin implements Listener, TabExecutor {
 					cmd.add("&r&7" + args1[j]);
 				}
 			}
-			s.sendMessage(format("&c&l´©¶ôµÈ ¸í·É¾î:\n&r" + String.join(" ", cmd)));
+			s.sendMessage(format("&c&lëˆ„ë½ëœ ëª…ë ¹ì–´:\n&r" + String.join(" ", cmd)));
 			return false;
 		}
 		else if(args.length > i && more) {
@@ -1056,7 +1055,7 @@ public class MoneyMain extends JavaPlugin implements Listener, TabExecutor {
 					cmd.add("&r&7" + args2.get(j));
 				}
 			}
-			s.sendMessage(format("&c&lÀß¸øµÈ ¸í·É¾î:\n&r" + String.join(" ", cmd)));
+			s.sendMessage(format("&c&lì˜ëª»ëœ ëª…ë ¹ì–´:\n&r" + String.join(" ", cmd)));
 			return false;
 		}
 		else return true;
